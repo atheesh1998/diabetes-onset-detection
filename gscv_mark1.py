@@ -1,8 +1,13 @@
+# Initial model definition
 
+# import necessary sklearn and keras packages
+from sklearn.model_selection import GridSearchCV, KFold
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.wrappers.scikit_learn import KerasClassifier
+from keras.optimizers import Adam
 
-
-
-def create_model:
+def create_model():
     # create
     model = Seqential()
     model.add(Dense(8, input_dim=8, kernel_initializer='normal', activation='relu'))

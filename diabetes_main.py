@@ -1,11 +1,17 @@
+# Author: Atheesh Krishnan
+# 29th September, 2019
+# Main Program | Driver Code
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import KFold, GridSearchCV
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.wrapers.scikit_learn import KerasClassifier
+from keras.wrappers.scikit_learn import KerasClassifier
 from keras.optimizers import Adam
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report, accuracy_score
+from gscv_mark5 import final_gscv
 
 # import the uci pima indians diabetes dataset
 url = "http://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data"
@@ -32,5 +38,16 @@ y = dataset[:,8].astype(int)
 scaler = StandardScaler().fit(X)
 
 # Transform and display the training data
-X_standardized = scaler.transform(X)
-data = pd.DataFrame(X_standardized)
+X_standardized = pd.DataFrame(scaler.transform(X))
+
+def return_var():
+    return X_standardized, y
+
+# Importing from the gscv_mark5 script
+grid = final_gscv()
+
+y_pred = grid.predict(X_standardized)
+
+# Model Results
+print(accuracy_score(y, y_pred))
+print(classification_report(y, y_pred))
